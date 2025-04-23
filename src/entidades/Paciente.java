@@ -131,5 +131,6 @@ public class Paciente extends Usuario {
     public Boolean getValidado(){
         return this.validado;
     }
+  
 }
 

@@ -7,44 +7,56 @@ package seguridad;
 import entidades.Usuario;
 import java.util.HashMap;
 import java.util.Map;
-
+import entidades.GestorMedicos;
+import entidades.GestorPacientes;
 /**
  *
  * @author Ulises
  */
 public class Autenticador {
     
-    private final Map<String, Usuario> usuariosRegistrados;
+    private GestorPacientes gestorPacientes;
+    private GestorMedicos gestorMedicos;
     
-    public Autenticador(){
-        this.usuariosRegistrados = new HashMap<>();
-        cargarUsuariosIniciales();
+    public Autenticador(GestorPacientes gestorPacientes, GestorMedicos gestorMedicos){
+        this.gestorPacientes = gestorPacientes;
+        this.gestorMedicos = gestorMedicos;
     }
     
-    private void cargarUsuariosIniciales(){
-        
-        agregarUsuario(new Usuario(1, "Admin", "Sistema", "admin@test.com", "admin123", "admin"));
-        
-        agregarUsuario(new Usuario(2, "María", "Gómez", "dra@test.com", "medico123", "medico"));
-        
-        agregarUsuario(new Usuario(3, "Juan", "Pérez", "paciente@mail.com", "paciente123", "paciente"));
+    public GestorPacientes getGestorPacientes() {
+        return gestorPacientes;
     }
     
-    public void agregarUsuario(Usuario usuario){
-        if(usuario == null || usuario.getEmail() == null){
-            throw new IllegalArgumentException("Usuario o email no pueden ser nulos");
+    public boolean autenticar(String usuario, String contraseña) {
+        for (Paciente p : gestorPacientes.getPacientes()) {
+            if (p.getUsuario().equals(usuario) && p.getContraseña().equals(contraseña)) {
+                return true;
+            }
         }
-        usuariosRegistrados.put(usuario.getEmail().toLowerCase(), usuario);
+
+        for (Medico m : gestorMedicos.getMedicos()) {
+            if (m.getUsuario().equals(usuario) && m.getContraseña().equals(contraseña)) {
+                return true;
+            }
+        }
+
+        return false;
     }
     
-    public Usuario autenticar(String email, String password) throws CredencialesInvalidasException{
-        if(email == null || password == null){
-            throw new IllegalArgumentException("Credenciales no pueden ser nulas");
+    public Usuario autenticarYObtenerUsuario(String usuario, String contraseña) throws CredencialesInvalidasException {
+        for (Paciente p : gestorPacientes.getPacientes()) {
+            if (p.getUsuario().equals(usuario) && p.getContraseña().equals(contraseña)) {
+                return p;
+            }
         }
-        Usuario usuario = usuariosRegistrados.get(email.toLowerCase());
-        if (usuario == null || !usuario.verificarContraseña(password)){
-            throw new CredencialesInvalidasException(); 
+
+        for (Medico m : gestorMedicos.getMedicos()) {
+            if (m.getUsuario().equals(usuario) && m.getContraseña().equals(contraseña)) {
+                return m;
+            }
         }
-        return usuario;
+
+        throw new CredencialesInvalidasException("Usuario o contraseña incorrectos.");
     }
 }
+

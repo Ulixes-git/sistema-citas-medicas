@@ -23,6 +23,14 @@ public class GestorPacientes {
         this.pacientes = new ArrayList<>();
     }
     
+    public List<Paciente> getPacientes(){
+        return pacientes;
+    }
+    
+    public GestorPacientes getGestorPacientes(){
+        return gestorPacientes;
+    }
+    
     public void agregarPaciente(Paciente paciente){
         if(paciente == null){
             throw new IllegalArgumentException("El paciente no puede ser nulo");

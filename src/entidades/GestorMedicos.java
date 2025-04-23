@@ -24,6 +24,11 @@ public class GestorMedicos {
         this.medicos = new ArrayList<>();
     }
     
+    public List<Medico> getMedicos(){
+        return medicos;
+    }
+    
+    
     public void agregarMedico(Medico medico){
         if (medico == null){
             throw new IllegalArgumentException("El médico no puede ser nulo");

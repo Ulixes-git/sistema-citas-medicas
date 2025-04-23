@@ -13,13 +13,18 @@ import java.util.Scanner;
  * @author Ulises
  */
 public class LoginUI {
-    public static Usuario mostrarLogin(Autenticador autenticador){
+    public static Usuario mostrarLogin(Autenticador autenticador) throws CredencialesInvalidasException {
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("====================================");
         System.out.println("   SISTEMA DE CITAS MÉDICAS");
         System.out.println("====================================");
         System.out.println("Por favor inicie sesión");
+        System.out.println("Registrar nuevo paciente...");
+
+        RegistroUI.registrarPaciente(autenticador.getGestorPacientes());
+
+        return null;
         
         while(true){
             try{
@@ -42,7 +47,6 @@ public class LoginUI {
                 System.out.println("Por favor, intente nuevamente.");
             }
         }
-    }
-    
+    }  
     
 }

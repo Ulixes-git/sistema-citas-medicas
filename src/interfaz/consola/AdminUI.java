@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class AdminUI {
     
-    public static void mostrarMenu(GestorPacientes gp, GestorMedicos gm, GestorCitas gc){
+    public static void mostrarMenu(){
         Scanner scanner = new Scanner(System.in);
         int opcion;
         
