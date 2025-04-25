@@ -8,6 +8,7 @@ import interfaz.consola.*;
 import entidades.*;
 import seguridad.Autenticador;
 import java.io.IOException;
+import interfaz.grafica.LoginVentana;
 
 /**
  *
@@ -20,12 +21,15 @@ public class SistemaCitasMedicas {
     private static GestorCitas gestorCitas;
 
     public static void main(String[] args) {
-        // Inicialización de componentes
-        inicializarGestores();
-        Autenticador autenticador = new Autenticador(gestorPacientes, gestorMedicos);
-        
-        // Bucle principal
-        ejecutarCicloPrincipal(autenticador);
+    // Crear el gestor de autenticación
+        Autenticador autenticador = new Autenticador();     //Fix: Autenticador constructor sin parámetros
+
+    // Mostrar la ventana de login
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginVentana(autenticador).setVisible(true);
+            }   
+        });
     }
 
     private static void inicializarGestores() {
@@ -35,7 +39,7 @@ public class SistemaCitasMedicas {
         
         try {
             gestorPacientes.cargarDesdeArchivo("data/pacientes.dat");
-            gestorMedicos.cargarDesdeArchivo("data/medicos.dat");
+            gestorMedicos.cargarDesdeArchivo("src/datos/medicos.txt");
             gestorCitas.cargarDesdeArchivo("data/citas.dat", gestorPacientes, gestorMedicos);
         } catch (IOException e) {
             System.out.println("Cargando datos iniciales...");

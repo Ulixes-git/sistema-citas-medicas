@@ -19,12 +19,15 @@ public class LoginUI {
         System.out.println("====================================");
         System.out.println("   SISTEMA DE CITAS MÉDICAS");
         System.out.println("====================================");
-        System.out.println("Por favor inicie sesión");
         System.out.println("Registrar nuevo paciente...");
 
-        RegistroUI.registrarPaciente(autenticador.getGestorPacientes());
-
-        return null;
+        if (!yaRegistrado) {
+            System.out.println("Registrar nuevo paciente...");
+            RegistroUI.registrarPaciente(autenticador.getGestorPacientes());
+            yaRegistrado = true;
+        }
+        
+        System.out.println("Por favor inicie sesión");
         
         while(true){
             try{

@@ -111,7 +111,7 @@ public class GestorMedicos {
                 Medico medico = new Medico(id, datos[1], datos[2], datos[3]);
                 medico.setConsultorio(datos[4]);
                 
-                if (!datos[].isEmpty()){
+                if (datos.length > 5 && !datos[5].isEmpty()) {
                     for(String dia : datos[5].split(";")){
                         try{
                             medico.agregarDiaLaboral(DayOfWeek.valueOf(dia.trim().toUpperCase()));
