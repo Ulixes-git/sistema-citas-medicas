@@ -23,6 +23,11 @@ public class Autenticador {
         this.gestorMedicos = gestorMedicos;
     }
     
+    public Autenticador() {
+    this.gestorPacientes = new GestorPacientes();
+    this.gestorMedicos = new GestorMedicos();
+    }
+    
     public GestorPacientes getGestorPacientes() {
         return gestorPacientes;
     }
